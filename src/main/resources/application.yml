@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        demoConsumer-in-0:
+          destination: demo-destination
+          group: demo-group
+      function:
+        definition: demoConsumer
