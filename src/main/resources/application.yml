@@ -2,8 +2,11 @@ spring:
   cloud:
     stream:
       bindings:
-        demoConsumer-in-0:
+        consumer-in-0:
           destination: demo-destination
           group: demo-group
+        producer-out-0:
+          destination: demo-destination
       function:
-        definition: demoConsumer
+        definition: consumer
+      source: producer
