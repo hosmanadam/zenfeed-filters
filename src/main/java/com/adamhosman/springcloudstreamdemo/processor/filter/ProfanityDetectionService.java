@@ -10,7 +10,7 @@ import java.util.Optional;
 @Component
 public class ProfanityDetectionService {
 
-    Logger logger = LoggerFactory.getLogger(ProfanityDetectionService.class);
+    private final Logger logger = LoggerFactory.getLogger(ProfanityDetectionService.class);
 
     private static final String PROFANITIES_PATTERN = "(?i)(balls|bollocks|bastard|bloody|bugger|cow|crap|damn|git|minger|sod-off)";
 

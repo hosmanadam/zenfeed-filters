@@ -9,7 +9,7 @@ import java.util.Optional;
 @Component
 public class SpamDetectionService {
 
-    Logger logger = LoggerFactory.getLogger(SpamDetectionService.class);
+    private final Logger logger = LoggerFactory.getLogger(SpamDetectionService.class);
 
     private static final String SPAM_PATTERN = "(?i).*(sale|offer|bargain|save|only now|limited time|opportunity|singles|near you).*";
 
