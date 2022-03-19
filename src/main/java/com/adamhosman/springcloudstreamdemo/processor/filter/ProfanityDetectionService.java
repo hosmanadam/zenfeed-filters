@@ -17,9 +17,10 @@ public class ProfanityDetectionService {
     public Optional<String> process(String message) {
         String processed = message.replaceAll(PROFANITIES_PATTERN, "unicorns");
         if (!Objects.equals(message, processed)) {
-            logger.info("### Profanity detected");
+            logger.info("### Profanity detected and corrected");
         }
-        return Optional.of(processed);
+        String tagged = processed + " #NoProfanity";
+        return Optional.of(tagged);
     }
 
 }
