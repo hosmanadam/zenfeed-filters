@@ -2,11 +2,16 @@ spring:
   cloud:
     stream:
       bindings:
-        consumer-in-0:
-          destination: demo-destination
-          group: demo-group
         producer-out-0:
-          destination: demo-destination
+          destination: all-messages
+        processor-in-0:
+          destination: all-messages
+          group: default
+        processor-out-0:
+          destination: processed-messages
+        consumer-in-0:
+          destination: processed-messages
+          group: default
       function:
-        definition: consumer
-      source: producer
+        definition: consumer;processor
+      source: producer;processor
