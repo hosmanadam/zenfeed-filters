@@ -21,24 +21,6 @@ spring:
           destination: filter3
           group: default
         filter3-out-0:
-          destination: filter4
-
-        filter4-in-0:
-          destination: filter4
-          group: default
-        filter4-out-0:
-          destination: filter5
-
-        filter5-in-0:
-          destination: filter5
-          group: default
-        filter5-out-0:
-          destination: filter6
-
-        filter6-in-0:
-          destination: filter6
-          group: default
-        filter6-out-0:
           destination: filtered
 
         consumer-in-0:
@@ -46,5 +28,5 @@ spring:
           group: default
 
       function:
-        definition: consumer;filter1;filter2;filter3;filter4;filter5;filter6
-      source: producer;filter1;filter2;filter3;filter4;filter5;filter6
+        definition: consumer;filter1;filter2;filter3
+      source: producer;filter1;filter2;filter3
