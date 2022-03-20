@@ -5,22 +5,22 @@ spring:
         producer-out-0:
           destination: unfiltered
 
-        filter1-in-0:
+        spamFilter-in-0:
           destination: unfiltered
           group: default
-        filter1-out-0:
-          destination: filter2
+        spamFilter-out-0:
+          destination: profanityFilter
 
-        filter2-in-0:
-          destination: filter2
+        profanityFilter-in-0:
+          destination: profanityFilter
           group: default
-        filter2-out-0:
-          destination: filter3
+        profanityFilter-out-0:
+          destination: negativityFilter
 
-        filter3-in-0:
-          destination: filter3
+        negativityFilter-in-0:
+          destination: negativityFilter
           group: default
-        filter3-out-0:
+        negativityFilter-out-0:
           destination: filtered
 
         consumer-in-0:
@@ -28,5 +28,5 @@ spring:
           group: default
 
       function:
-        definition: consumer;filter1;filter2;filter3
-      source: producer;filter1;filter2;filter3
+        definition: consumer;spamFilter;profanityFilter;negativityFilter
+      source: producer;spamFilter;profanityFilter;negativityFilter

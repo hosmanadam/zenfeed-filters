@@ -13,17 +13,17 @@ import java.util.function.Function;
 public class ProcessorConfiguration {
 
     @Bean
-    public Function<String, String> filter1(@Autowired SpamDetectionService service) {
+    public Function<String, String> spamFilter(@Autowired SpamDetectionService service) {
         return (message) -> service.process(message).orElse(null);
     }
 
     @Bean
-    public Function<String, String> filter2(@Autowired ProfanityDetectionService service) {
+    public Function<String, String> profanityFilter(@Autowired ProfanityDetectionService service) {
         return (message) -> service.process(message).orElse(null);
     }
 
     @Bean
-    public Function<String, String> filter3(@Autowired NegativityDetectionService service) {
+    public Function<String, String> negativityFilter(@Autowired NegativityDetectionService service) {
         return (message) -> service.process(message).orElse(null);
     }
 
