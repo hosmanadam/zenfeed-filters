@@ -1,5 +1,6 @@
 package com.adamhosman.springcloudstreamdemo.processor;
 
+import com.adamhosman.springcloudstreamdemo.processor.filter.NegativityDetectionService;
 import com.adamhosman.springcloudstreamdemo.processor.filter.ProfanityDetectionService;
 import com.adamhosman.springcloudstreamdemo.processor.filter.SpamDetectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class ProcessorConfiguration {
     }
 
     @Bean
-    public Function<String, String> filter5() {
-        return (message) -> message + " #filter5";
+    public Function<String, String> filter5(@Autowired NegativityDetectionService service) {
+        return (message) -> service.process(message).orElse(null);
     }
 
     @Bean
