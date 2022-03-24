@@ -13,18 +13,19 @@ public class NegativityDetectionService {
 
     private final Logger logger = LoggerFactory.getLogger(NegativityDetectionService.class);
 
-    private static final Map<String, String> NEGATIVE_POSITIVE = Map.of(
-            "negative", "positive",
+    private static final Map<String, String> NEGATIVE_TO_POSITIVE = Map.of(
             "can't", "can",
             "cannot", "can",
-            "terrible", "fantastic",
+            "depressed", "motivated",
             "lousy", "great",
-            "depressed", "motivated"
+            "negative", "positive",
+            "never", "always",
+            "terrible", "fantastic"
     );
 
     public Optional<String> process(String message) {
         String processed = message;
-        for (Map.Entry<String, String> entry : NEGATIVE_POSITIVE.entrySet()) {
+        for (Map.Entry<String, String> entry : NEGATIVE_TO_POSITIVE.entrySet()) {
             processed = processed.replaceAll(entry.getKey(), entry.getValue());
         }
         if (!Objects.equals(message, processed)) {
