@@ -1,2 +1,6 @@
 rootProject.name = 'springcloudstreamdemo'
-include 'zen-filters'
+include 'zen-filter1'
+include 'zen-filter2'
+include 'zen-filter3'
+include 'zen-filter4'
+include 'zen-filter5'

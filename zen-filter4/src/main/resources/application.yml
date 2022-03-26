@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        negativityFilter-in-0:
+          destination: negativityFilter
+          group: default
+        negativityFilter-out-0:
+          destination: filtered
+      function:
+        definition: negativityFilter
+      source: negativityFilter

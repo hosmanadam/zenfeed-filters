@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        spamFilter-in-0:
+          destination: unfiltered
+          group: default
+        spamFilter-out-0:
+          destination: profanityFilter
+      function:
+        definition: spamFilter
+      source: spamFilter

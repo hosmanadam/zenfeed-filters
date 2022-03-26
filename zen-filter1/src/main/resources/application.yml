@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        producer-out-0:
+          destination: unfiltered
+      source: producer
