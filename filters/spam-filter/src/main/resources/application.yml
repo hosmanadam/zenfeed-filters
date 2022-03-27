@@ -3,7 +3,7 @@ spring:
     stream:
       bindings:
         spamFilter-in-0:
-          destination: unfiltered
+          destination: spamFilter
           group: default
         spamFilter-out-0:
           destination: profanityFilter

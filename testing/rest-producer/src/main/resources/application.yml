@@ -3,5 +3,5 @@ spring:
     stream:
       bindings:
         producer-out-0:
-          destination: unfiltered
+          destination: spamFilter
       source: producer
