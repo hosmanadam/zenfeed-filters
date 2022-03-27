@@ -1,9 +1,0 @@
-spring:
-  cloud:
-    stream:
-      bindings:
-        consumer-in-0:
-          destination: filtered
-          group: default
-      function:
-        definition: consumer
