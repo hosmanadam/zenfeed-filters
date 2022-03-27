@@ -33,6 +33,22 @@ class SpamFilterApplicationIT {
     private MessageCollector messageCollector;
     private BlockingQueue<Message<?>> outputCollector;
 
+    private static void assertMessageNotReceived(BlockingQueue<Message<?>> outputCollector) {
+        Message<?> message = poll(outputCollector);
+        assertNull(message);
+    }
+
+    private static Message<?> poll(BlockingQueue<Message<?>> outputCollector) {
+        Message<?> message;
+        try {
+            int estimatedMaxSecondsForTestBinderToDeliverMessage = 2;
+            message = outputCollector.poll(estimatedMaxSecondsForTestBinderToDeliverMessage, SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return message;
+    }
+
     @BeforeEach
     private void setUp() {
         outputCollector = messageCollector.forChannel(output);
@@ -58,22 +74,6 @@ class SpamFilterApplicationIT {
         input.send(new GenericMessage<>(inputMessage));
 
         assertMessageNotReceived(outputCollector);
-    }
-
-    private static void assertMessageNotReceived(BlockingQueue<Message<?>> outputCollector) {
-        Message<?> message = poll(outputCollector);
-        assertNull(message);
-    }
-
-    private static Message<?> poll(BlockingQueue<Message<?>> outputCollector) {
-        Message<?> message;
-        try {
-            int estimatedMaxSecondsForTestBinderToDeliverMessage = 2;
-            message = outputCollector.poll(estimatedMaxSecondsForTestBinderToDeliverMessage, SECONDS);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return message;
     }
 
 }

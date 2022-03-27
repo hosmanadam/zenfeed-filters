@@ -19,7 +19,7 @@ public class LoggingConsumerApplication {
 
     @Bean
     public Consumer<String> consumer() {
-        return (message) -> logger.info("### Message received:\n{}", message);
+        return (message) -> logger.info("### Final message: {}", message);
     }
 
 }

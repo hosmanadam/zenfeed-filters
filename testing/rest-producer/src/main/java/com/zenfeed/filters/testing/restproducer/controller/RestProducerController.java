@@ -20,7 +20,7 @@ public class RestProducerController {
 
     @PostMapping("/produce")
     public void produce(@RequestBody String message) {
-        logger.info("### Sending message: {}", message);
+        logger.info("### New message: {}", message);
         streamBridge.send("producer-out-0", message);
     }
 
