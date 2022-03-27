@@ -1,4 +1,4 @@
-rootProject.name = 'zen-filters'
+rootProject.name = 'zenfeed-filters'
 
 include 'filters:spam-filter'
 include 'filters:profanity-filter'
