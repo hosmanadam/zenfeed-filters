@@ -1,4 +1,4 @@
-package com.zenfeed.filters.spam.rabbit;
+package com.zenfeed.filters.spam.messaging;
 
 import com.zenfeed.filters.spam.service.SpamDetectionService;
 import org.slf4j.Logger;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static com.zenfeed.filters.spam.rabbit.RabbitConfiguration.QUEUE_IN;
-import static com.zenfeed.filters.spam.rabbit.RabbitConfiguration.QUEUE_OUT;
+import static com.zenfeed.filters.spam.messaging.MessagingConfiguration.QUEUE_IN;
+import static com.zenfeed.filters.spam.messaging.MessagingConfiguration.QUEUE_OUT;
 
 @Component
 public class SpamListener {

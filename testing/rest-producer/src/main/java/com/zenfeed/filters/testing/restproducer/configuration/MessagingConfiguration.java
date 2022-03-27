@@ -1,4 +1,4 @@
-package com.zenfeed.filters.negativity.rabbit;
+package com.zenfeed.filters.testing.restproducer.configuration;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
@@ -8,15 +8,9 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(RabbitAutoConfiguration.class)
-public class RabbitConfiguration {
+public class MessagingConfiguration {
 
-    static final String QUEUE_IN = "negativityFilter.default";
-    static final String QUEUE_OUT = "filtered.default";
-
-    @Bean
-    public Queue queueIn() {
-        return new Queue(QUEUE_IN);
-    }
+    public static final String QUEUE_OUT = "spamFilter.default";
 
     @Bean
     public Queue queueOut() {

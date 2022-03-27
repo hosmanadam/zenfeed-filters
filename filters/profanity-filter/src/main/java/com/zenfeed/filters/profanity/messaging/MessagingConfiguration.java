@@ -1,4 +1,4 @@
-package com.zenfeed.filters.profanity.rabbit;
+package com.zenfeed.filters.profanity.messaging;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(RabbitAutoConfiguration.class)
-public class RabbitConfiguration {
+public class MessagingConfiguration {
 
     static final String QUEUE_IN = "profanityFilter.default";
     static final String QUEUE_OUT = "negativityFilter.default";

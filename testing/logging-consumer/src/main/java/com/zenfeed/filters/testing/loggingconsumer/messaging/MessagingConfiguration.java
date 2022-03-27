@@ -1,4 +1,4 @@
-package com.zenfeed.filters.testing.restproducer.configuration;
+package com.zenfeed.filters.testing.loggingconsumer.messaging;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
@@ -8,13 +8,12 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(RabbitAutoConfiguration.class)
-public class RabbitConfiguration {
+public class MessagingConfiguration {
 
-    public static final String QUEUE_OUT = "spamFilter.default";
+    static final String QUEUE_IN = "filtered.default";
 
     @Bean
-    public Queue queueOut() {
-        return new Queue(QUEUE_OUT);
+    public Queue queueIn() {
+        return new Queue(QUEUE_IN);
     }
-
 }
