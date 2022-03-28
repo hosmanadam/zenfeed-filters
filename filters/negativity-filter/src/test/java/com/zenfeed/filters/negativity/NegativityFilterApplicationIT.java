@@ -1,52 +1,35 @@
-//package com.zenfeed.filters.negativity;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Qualifier;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.cloud.stream.test.binder.MessageCollector;
-//import org.springframework.messaging.Message;
-//import org.springframework.messaging.MessageChannel;
-//import org.springframework.messaging.support.GenericMessage;
-//
-//import java.util.concurrent.BlockingQueue;
-//
-//import static org.hamcrest.CoreMatchers.is;
-//import static org.hamcrest.MatcherAssert.assertThat;
-//import static org.springframework.cloud.stream.test.matcher.MessageQueueMatcher.receivesPayloadThat;
-//
-//@SpringBootTest
-//class NegativityFilterApplicationIT {
-//
-//    @Autowired
-//    @Qualifier("negativityFilter-in-0")
-//    private MessageChannel input;
-//
-//    @Autowired
-//    @Qualifier("negativityFilter-out-0")
-//    private MessageChannel output;
-//
-//    @Autowired
-//    private MessageCollector messageCollector;
-//    private BlockingQueue<Message<?>> outputCollector;
-//
-//    @BeforeEach
-//    private void setUp() {
-//        outputCollector = messageCollector.forChannel(output);
-//    }
-//
-//    @Test
-//    void contextLoads() {
-//    }
-//
-//    @Test
-//    void correctsNegativity() {
-//        String inputMessage = "I could never do that";
-//
-//        input.send(new GenericMessage<>(inputMessage));
-//
-//        assertThat(outputCollector, receivesPayloadThat(is("I could always do that #NoNegativity")));
-//    }
-//
-//}
+package com.zenfeed.filters.negativity;
+
+import com.zenfeed.filters.negativity.messaging.NegativityListener;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import static com.zenfeed.filters.negativity.messaging.MessagingConfiguration.QUEUE_OUT;
+
+@SpringBootTest
+class NegativityFilterApplicationIT {
+
+    @Autowired
+    private NegativityListener negativityListener;
+
+    @MockBean
+    private RabbitTemplate rabbitTemplate;
+
+    @Test
+    void contextLoads() {
+    }
+
+    @Test
+    void correctsNegativity() {
+        String inputMessage = "I could never do that";
+
+        negativityListener.negativityListener(inputMessage);
+
+        Mockito.verify(rabbitTemplate).convertAndSend(QUEUE_OUT, "I could always do that #NoNegativity");
+    }
+
+}

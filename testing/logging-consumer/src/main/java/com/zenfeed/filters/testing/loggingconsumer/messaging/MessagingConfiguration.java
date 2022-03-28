@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 @Import(RabbitAutoConfiguration.class)
 public class MessagingConfiguration {
 
-    static final String QUEUE_IN = "filtered.default";
+    public static final String QUEUE_IN = "filtered.default";
 
     @Bean
     public Queue queueIn() {

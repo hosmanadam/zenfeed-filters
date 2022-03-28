@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Import;
 @Import(RabbitAutoConfiguration.class)
 public class MessagingConfiguration {
 
-    static final String QUEUE_IN = "spamFilter.default";
-    static final String QUEUE_OUT = "profanityFilter.default";
+    public static final String QUEUE_IN = "spamFilter.default";
+    public static final String QUEUE_OUT = "profanityFilter.default";
 
     @Bean
     public Queue queueIn() {

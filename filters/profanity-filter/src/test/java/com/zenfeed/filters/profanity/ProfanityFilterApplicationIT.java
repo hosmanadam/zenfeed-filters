@@ -1,52 +1,35 @@
-//package com.zenfeed.filters.profanity;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Qualifier;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.cloud.stream.test.binder.MessageCollector;
-//import org.springframework.messaging.Message;
-//import org.springframework.messaging.MessageChannel;
-//import org.springframework.messaging.support.GenericMessage;
-//
-//import java.util.concurrent.BlockingQueue;
-//
-//import static org.hamcrest.CoreMatchers.is;
-//import static org.hamcrest.MatcherAssert.assertThat;
-//import static org.springframework.cloud.stream.test.matcher.MessageQueueMatcher.receivesPayloadThat;
-//
-//@SpringBootTest
-//class ProfanityFilterApplicationIT {
-//
-//    @Autowired
-//    @Qualifier("profanityFilter-in-0")
-//    private MessageChannel input;
-//
-//    @Autowired
-//    @Qualifier("profanityFilter-out-0")
-//    private MessageChannel output;
-//
-//    @Autowired
-//    private MessageCollector messageCollector;
-//    private BlockingQueue<Message<?>> outputCollector;
-//
-//    @BeforeEach
-//    private void setUp() {
-//        outputCollector = messageCollector.forChannel(output);
-//    }
-//
-//    @Test
-//    void contextLoads() {
-//    }
-//
-//    @Test
-//    void correctsProfanities() {
-//        String inputMessage = "This is totally bollocks";
-//
-//        input.send(new GenericMessage<>(inputMessage));
-//
-//        assertThat(outputCollector, receivesPayloadThat(is("This is totally unicorns #NoProfanity")));
-//    }
-//
-//}
+package com.zenfeed.filters.profanity;
+
+import com.zenfeed.filters.profanity.messaging.ProfanityListener;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import static com.zenfeed.filters.profanity.messaging.MessagingConfiguration.QUEUE_OUT;
+
+@SpringBootTest
+class ProfanityFilterApplicationIT {
+
+    @Autowired
+    private ProfanityListener profanityListener;
+
+    @MockBean
+    private RabbitTemplate rabbitTemplate;
+
+    @Test
+    void contextLoads() {
+    }
+
+    @Test
+    void correctsProfanities() {
+        String inputMessage = "This is totally bollocks";
+
+        profanityListener.profanityListener(inputMessage);
+
+        Mockito.verify(rabbitTemplate).convertAndSend(QUEUE_OUT, "This is totally unicorns #NoProfanity");
+    }
+
+}
