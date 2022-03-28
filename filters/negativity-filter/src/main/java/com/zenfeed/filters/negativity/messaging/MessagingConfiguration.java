@@ -1,26 +1,30 @@
 package com.zenfeed.filters.negativity.messaging;
 
-import org.springframework.amqp.core.Queue;
-import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
-@Import(RabbitAutoConfiguration.class)
 public class MessagingConfiguration {
 
-    public static final String QUEUE_IN = "negativityFilter.default";
-    public static final String QUEUE_OUT = "filtered.default";
+    public static final String TOPIC_IN = "negativityFilter";
+    public static final String TOPIC_OUT = "filtered";
 
     @Bean
-    public Queue queueIn() {
-        return new Queue(QUEUE_IN);
+    public NewTopic topicIn() {
+        return TopicBuilder.name(TOPIC_IN)
+                .partitions(10)
+                .replicas(1)
+                .build();
     }
 
     @Bean
-    public Queue queueOut() {
-        return new Queue(QUEUE_OUT);
+    public NewTopic topicOut() {
+        return TopicBuilder.name(TOPIC_OUT)
+                .partitions(10)
+                .replicas(1)
+                .build();
     }
 
 }
