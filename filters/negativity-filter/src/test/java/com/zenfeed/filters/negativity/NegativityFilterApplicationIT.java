@@ -27,7 +27,7 @@ class NegativityFilterApplicationIT {
     void correctsNegativity() {
         String inputMessage = "I could never do that";
 
-        negativityListener.negativityListener(inputMessage);
+        negativityListener.consume(inputMessage);
 
         Mockito.verify(rabbitTemplate).convertAndSend(QUEUE_OUT, "I could always do that #NoNegativity");
     }

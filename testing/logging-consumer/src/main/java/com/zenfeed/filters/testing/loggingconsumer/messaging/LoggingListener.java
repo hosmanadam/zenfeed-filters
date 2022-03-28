@@ -13,7 +13,7 @@ public class LoggingListener {
     private final Logger logger = LoggerFactory.getLogger(LoggingListener.class);
 
     @RabbitListener(queues = QUEUE_IN)
-    public void loggingListener(String message) {
+    public void consume(String message) {
         logger.info("### Final message: {}", message);
     }
 

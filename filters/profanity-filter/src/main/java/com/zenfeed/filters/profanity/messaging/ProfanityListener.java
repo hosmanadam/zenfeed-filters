@@ -23,7 +23,7 @@ public class ProfanityListener {
     private ProfanityDetectionService service;
 
     @RabbitListener(queues = QUEUE_IN)
-    public void profanityListener(String message) {
+    public void consume(String message) {
         logger.info("### Incoming message: {}", message);
         String processedMessage = service.process(message);
         logger.info("### Outgoing message: {}", processedMessage);

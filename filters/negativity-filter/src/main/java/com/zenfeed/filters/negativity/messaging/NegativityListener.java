@@ -23,7 +23,7 @@ public class NegativityListener {
     private NegativityDetectionService service;
 
     @RabbitListener(queues = QUEUE_IN)
-    public void negativityListener(String message) {
+    public void consume(String message) {
         logger.info("### Incoming message: {}", message);
         String processedMessage = service.process(message);
         logger.info("### Outgoing message: {}", processedMessage);

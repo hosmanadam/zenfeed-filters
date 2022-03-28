@@ -27,7 +27,7 @@ class ProfanityFilterApplicationIT {
     void correctsProfanities() {
         String inputMessage = "This is totally bollocks";
 
-        profanityListener.profanityListener(inputMessage);
+        profanityListener.consume(inputMessage);
 
         Mockito.verify(rabbitTemplate).convertAndSend(QUEUE_OUT, "This is totally unicorns #NoProfanity");
     }

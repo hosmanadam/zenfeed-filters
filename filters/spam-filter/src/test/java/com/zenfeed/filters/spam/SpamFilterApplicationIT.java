@@ -28,7 +28,7 @@ class SpamFilterApplicationIT {
     void tagsNonSpam() {
         String inputMessage = "I'm not selling anything";
 
-        spamListener.spamListener(inputMessage);
+        spamListener.consume(inputMessage);
 
         Mockito.verify(rabbitTemplate).convertAndSend(QUEUE_OUT, inputMessage + PROCESSED_TAG);
     }
@@ -37,7 +37,7 @@ class SpamFilterApplicationIT {
     void blocksSpam() {
         String inputMessage = "$$$ Save 10,000 CHF, for a limited time only $$$";
 
-        spamListener.spamListener(inputMessage);
+        spamListener.consume(inputMessage);
 
         Mockito.verifyNoInteractions(rabbitTemplate);
     }

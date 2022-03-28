@@ -25,7 +25,7 @@ public class SpamListener {
     private SpamDetectionService service;
 
     @RabbitListener(queues = QUEUE_IN)
-    public void spamListener(String message) {
+    public void consume(String message) {
         logger.info("### Incoming message: {}", message);
         Optional<String> processedMessage = service.process(message);
         if (processedMessage.isPresent()) {
