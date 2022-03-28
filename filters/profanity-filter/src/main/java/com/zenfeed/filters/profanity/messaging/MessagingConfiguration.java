@@ -1,26 +1,24 @@
 package com.zenfeed.filters.profanity.messaging;
 
-import org.springframework.amqp.core.Queue;
-import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
-@Import(RabbitAutoConfiguration.class)
 public class MessagingConfiguration {
 
-    public static final String QUEUE_IN = "profanityFilter.default";
-    public static final String QUEUE_OUT = "negativityFilter.default";
+    public static final String TOPIC_IN = "profanityFilter";
+    public static final String TOPIC_OUT = "negativityFilter";
 
     @Bean
-    public Queue queueIn() {
-        return new Queue(QUEUE_IN);
+    public NewTopic topicIn() {
+        return TopicBuilder.name(TOPIC_IN).build();
     }
 
     @Bean
-    public Queue queueOut() {
-        return new Queue(QUEUE_OUT);
+    public NewTopic topicOut() {
+        return TopicBuilder.name(TOPIC_OUT).build();
     }
 
 }

@@ -3,12 +3,12 @@ package com.zenfeed.filters.negativity;
 import com.zenfeed.filters.negativity.messaging.NegativityListener;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.kafka.core.KafkaTemplate;
 
-import static com.zenfeed.filters.negativity.messaging.MessagingConfiguration.QUEUE_OUT;
+import static com.zenfeed.filters.negativity.messaging.MessagingConfiguration.TOPIC_OUT;
 
 @SpringBootTest
 class NegativityFilterApplicationIT {
@@ -17,7 +17,7 @@ class NegativityFilterApplicationIT {
     private NegativityListener negativityListener;
 
     @MockBean
-    private RabbitTemplate rabbitTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Test
     void contextLoads() {
@@ -29,7 +29,7 @@ class NegativityFilterApplicationIT {
 
         negativityListener.consume(inputMessage);
 
-        Mockito.verify(rabbitTemplate).convertAndSend(QUEUE_OUT, "I could always do that #NoNegativity");
+        Mockito.verify(kafkaTemplate).send(TOPIC_OUT, "I could always do that #NoNegativity");
     }
 
 }

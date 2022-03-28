@@ -2,14 +2,14 @@ package com.zenfeed.filters.testing.restproducer;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.zenfeed.filters.testing.restproducer.configuration.MessagingConfiguration.QUEUE_OUT;
+import static com.zenfeed.filters.testing.restproducer.configuration.MessagingConfiguration.TOPIC_OUT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
@@ -20,7 +20,7 @@ class RestProducerIT {
     private MockMvc mockMvc;
 
     @MockBean
-    private RabbitTemplate rabbitTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Test
     void contextLoads() {
@@ -32,7 +32,7 @@ class RestProducerIT {
 
         mockMvc.perform(post("/produce").content(requestBody));
 
-        Mockito.verify(rabbitTemplate).convertAndSend(QUEUE_OUT, requestBody);
+        Mockito.verify(kafkaTemplate).send(TOPIC_OUT, requestBody);
     }
 
 }
