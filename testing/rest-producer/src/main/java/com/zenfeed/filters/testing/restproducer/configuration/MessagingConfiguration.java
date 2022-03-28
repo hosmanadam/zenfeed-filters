@@ -12,10 +12,7 @@ public class MessagingConfiguration {
 
     @Bean
     public NewTopic topicOut() {
-        return TopicBuilder.name(TOPIC_OUT)
-                .partitions(10)
-                .replicas(1)
-                .build();
+        return TopicBuilder.name(TOPIC_OUT).build();
     }
 
 }

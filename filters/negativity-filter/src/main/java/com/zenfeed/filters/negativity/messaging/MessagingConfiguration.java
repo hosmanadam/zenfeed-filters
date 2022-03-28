@@ -13,18 +13,12 @@ public class MessagingConfiguration {
 
     @Bean
     public NewTopic topicIn() {
-        return TopicBuilder.name(TOPIC_IN)
-                .partitions(10)
-                .replicas(1)
-                .build();
+        return TopicBuilder.name(TOPIC_IN).build();
     }
 
     @Bean
     public NewTopic topicOut() {
-        return TopicBuilder.name(TOPIC_OUT)
-                .partitions(10)
-                .replicas(1)
-                .build();
+        return TopicBuilder.name(TOPIC_OUT).build();
     }
 
 }
